@@ -72,7 +72,7 @@ class wrapper
                 { 
                     entity = target;
                     if (IsFunctionAssigned(::events, "OnEntityFound"))
-                                ::events.OnEntityFound.acall([this, {classname=entity_classname,target=" "}])
+                        ::events.OnEntityFound.acall([this, {classname=entity_classname,target=" "}])
                     break;
                 }
                 
