@@ -1,0 +1,11 @@
+// Test 1
+ent_fire scope_test runscriptcode "TestPlayerClass()"
+
+// Test 2
+ent_fire scope_test runscriptcode "TestGetName()"
+
+// Test 3
+ent_fire scope_test runscriptcode "TestChange()"
+
+// Test 4
+ent_fire scope_test runscriptcode "TestNewNameFind()"

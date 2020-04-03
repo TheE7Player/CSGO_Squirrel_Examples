@@ -1,10 +1,22 @@
 # CSGO Squirrel Tutorial
 
-> This guide is accurate as from 24rd of March, 2020.
->
-> Last Update: 24rd of March, 2020
+> Last Update: 3rd of April, 2020
 
-*This guide is still undergoing development - please keep checking until fully completed*
+*This guide is still undergoing development - please keep checking until fully completed (Expect errors)*
+
+## History (Of Guide)
+
+`23rd March, 2020`
+
+- Added Guide with maps
+- Added code with examples
+
+`3rd April, 2020`
+
+- Fixed issue on `player.nut` print statement (Thanks `@DMax`) 
+- Added Child Class
+- Added Screenshots
+- Added `.txt` file of the `Four Tests`
 
 ## Understanding Scopes and Implementing Wrappers
 
@@ -311,3 +323,120 @@ Which is retrieved from the argument named `data`:
 
 You may see the rest of the code from the parent class here: https://github.com/TheE7Player/CSGO_Squirrel_Examples/blob/master/Scope%2C%20OOP%20Tutorial/csgo/scripts/vscripts/scope_tutorial/base.nut
 
+### Child Class (Player)
+
+Since we made our main parent class `wrapper`, we can create a child which `inherits` the parents `variables and functionality` -  Our child class will be called `Player`.
+
+#### Inheritance Behaviour
+
+For us to use `wrapper` as a `base class` (`Parent Class`), we have to use the `extends` keyword then reference the file the child inherits from.
+
+```squirrel
+class Player extends wrapper
+```
+
+From this line, `Player` will inherit all the `functions and variables` that are `internal` from the `wrapper class` which we cannot see (due to `encapsulation`)
+
+#### What does this mean?
+
+If we leave our `Player` blueprint blank, we have all access to `wrapper`'s class properties and functionality.
+
+**BUT** if we change the implementation on `Player`, it won't be accessed from the `base class`.  (Known as an `override`)
+
+`Squirrel` is weird as other languages require you to implement a `constructor` and a few overrides, but with squirrel you don't *really* need to. You should only create an override if the functionality of creating that object requires extra logic.
+
+In the class example, I implemented a `constructor override`, as I wanted the constructor to call the function `EventInit()`.
+
+If I left it unimplemented, it would mean the `base class` `constructor` will be called instead.
+
+#### Implementing Event Hooks
+
+As you've seen from `base.nut` file, there is an `External Global Scope` `table` called `::events` which gets called by the functions as a fake `event handler`.
+
+We can still append to the event table, but we have to check if it has been assigned before hand to avoid the event being reset to `null`.
+
+```Squirrel
+//player.nut @ line 87
+if(!("OnHealthCall" in ::events))
+   ::events.OnHealthCall <- null;   
+```
+
+Remember, since this event doesn't exist in this table we have to use the new slot operator `<-` to assign it to the table. We'll assign it `null` for now, the player script will declare a function to the slot during run time.
+
+```Squirrel
+// player.nut @ line 251
+// Player Class Hooks
+::events.OnHealthCall <- function(data)
+```
+
+Nothing else has changed a part from the new function `Health` in the `Player` class, here are the object initiations:
+
+```Squirrel
+// player.nut @ line 180
+function load()
+{
+    // Pre-assign our variables before hand
+    
+    // Find the CT classname in the map, and look for any that has the targetname of "ct"
+    Me = Player(Type.CT, "ct")
+    
+    // Find the T classname in the map, return first instance - Okay if only one in map!
+    Enemy = Player(Type.T, "t") 
+}
+```
+
+With a new test function to validate the logic:
+
+```Squirrel
+// player.nut @ line 285
+function TestPlayerClass()
+{
+    // Test getters (Callback is called from function "::event["OnHealthCall"]")
+    Me.Health();
+    Enemy.Health();
+
+    // Test setters (Callback is called from function "::event["OnHealthCall"]")
+    Me.Health(500);
+    Enemy.Health(200);
+
+    // Test faults (Callback is called from function "::event["OnHealthCall"]")
+    Me.Health(3.142); // <- This should throw an error
+    Enemy.Health("Haha, no."); // <- Should throw error as its a string, not an integer
+}
+```
+
+
+
+## Testing
+
+Here are the commands I used to initiate the testing of the script:
+
+`ent_fire scope_test runscriptcode "TestPlayerClass()"`
+
+`ent_fire scope_test runscriptcode "TestGetName()"`
+
+`ent_fire scope_test runscriptcode "TestChange()"`
+
+`ent_fire scope_test runscriptcode "TestNewNameFind()"`
+
+> The testing may look weird due to the nature of how these functions work.
+>
+> **TestPlayerClass**
+>
+> The health will initially be `0` despite the actual health being at `100`. The value will be remembers once the `SetHealth` command has been called
+>
+>  
+>
+> **TestChange**
+>
+> This function will work all time time unless the `TestChange` is called. Once you assign a target name externally, it will be remember until map restart. Call `TestNewNameFind` test to validate the new change.
+
+
+
+#### Testing results
+
+Each call back is called from an `event function` from the `::event` table.
+
+> Look at player.nut from line 192 to 306 to look at the functions that call these events
+
+##### <img src="https://raw.githubusercontent.com/TheE7Player/CSGO_Squirrel_Examples/master/Scope%2C%20OOP%20Tutorial/chat_test.png" style="zoom:150%;" />
