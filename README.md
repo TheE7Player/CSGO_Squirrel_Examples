@@ -6,3 +6,15 @@ My `Discord` channel is here if you need help or see errors: [Here](https://disc
 My Current guides:
 
 **Scope with OOP, Along side creating a Wrapper:** [Here](https://github.com/TheE7Player/CSGO_Squirrel_Examples/blob/master/Scope%2C%20OOP%20Tutorial/scope_and_wrapper.md)
+
+# Powerpoints
+
+Most of my online tutorials contain powerpoints which help the user understand fully what I want the user the learn about the `Squirrel` language.
+
+These can be found individually in the `/Powerpoints` folder from above:
+
+[Big-O with Squirrel](https://github.com/TheE7Player/CSGO_Squirrel_Examples/blob/master/Powerpoints/squrriel_bigo.pptx)
+
+[OOP with Squirrel](https://github.com/TheE7Player/CSGO_Squirrel_Examples/blob/master/Powerpoints/squrriel_oop.pptx)
+
+[Simon Says in CS:GO with Squirrel](https://github.com/TheE7Player/CSGO_Squirrel_Examples/blob/master/Powerpoints/squrriel_simonsays.pptx)
