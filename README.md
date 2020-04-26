@@ -18,3 +18,6 @@ These can be found individually in the `/Powerpoints` folder from above:
 [OOP with Squirrel](https://github.com/TheE7Player/CSGO_Squirrel_Examples/blob/master/Powerpoints/squrriel_oop.pptx)
 
 [Simon Says in CS:GO with Squirrel](https://github.com/TheE7Player/CSGO_Squirrel_Examples/blob/master/Powerpoints/squrriel_simonsays.pptx)
+
+[Scopes and Fake Event Handlers with Squirrel](https://github.com/TheE7Player/CSGO_Squirrel_Examples/blob/master/Powerpoints/squrriel_scope.pptx)
+[( Script for youtube tutorial )](https://github.com/TheE7Player/CSGO_Squirrel_Examples/blob/master/Scope%2C%20OOP%20Tutorial/csgo/scripts/vscripts/scope_tutorial/tutorial.nut)
