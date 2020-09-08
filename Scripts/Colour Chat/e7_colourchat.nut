@@ -96,12 +96,4 @@ function E7Colour::ChatT(text) : ( GenerateOutput )
     ScriptPrintMessageChatTeam( 2, text )
 }
 
-function E7Colour::Alert(text) : ( GenerateOutput )
-{
-    local text = GenerateOutput(text)
-
-    if(text == "ERROR")
-        return
-
-    ScriptPrintMessageCenterAll( text )
-}
+function E7Colour::Alert(text) { ScriptPrintMessageCenterAll( text ) }
