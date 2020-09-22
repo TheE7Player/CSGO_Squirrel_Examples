@@ -5,11 +5,15 @@
 
 /*
     Thread which holds and explains these colour codes: https://forums.alliedmods.net/showthread.php?t=290562
+
+    Thank you DMax#7777 & Marshak#7777 for expanding the available colours
 */
+
 local COLOUR = {
-    NORMAL = "\x01", DARKRED = "\x02", PINK = "\x03", GREEN = "\x04",
-    YELLOW = "\x05", LIGHTGREEN = "\x06", GRAY = "\x07", BLUE = "\x0B",
-    DARKBLUE = "\x0C", PURPLE = "\x0E"
+    INVIS = "\x00", NORMAL = "\x01", RED = "\x02", PURPLE = "\x03",
+    GREEN = "\x04", LIGHTGREEN = "\x05", LIMEGREEN = "\x06", LIGHTRED = "\x07",
+    GREY = "\x08", YELLOW = "\x09", LIGHTBLUE = "\x0a", BLUE = "\x0b", DARKBLUE = "\x0c",
+    DARKGREY = "\x0d", PINK = "\x0e", ORANGERED = "\x0f", ORANGE = "\x10"
 }
 
 local BRACKET = { OPEN = 123, CLOSE = 125 }
@@ -22,7 +26,7 @@ local GenerateOutput = function (text) : ( COLOUR, BRACKET ) {
     local stringOut = ""	
 
     while ( i < len )
-    {
+    { 
 
         if(text[i] == BRACKET.OPEN)
         {
